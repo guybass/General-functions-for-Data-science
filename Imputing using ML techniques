@@ -1,0 +1,18 @@
+from fancyimpute import KNN
+
+def KNN_impute(df, k=5)
+"""
+This function uses the Knn algorithm to inpute missing values in the data frame.
+this function can be modified to use any suppervaized method from the fancyimpute library.
+"""
+
+    # Copy diabetes to diabetes_knn_imputed
+    df_knn_imputed = df.copy(deep=True)
+
+    # Initialize KNN
+    knn_imputer = KNN(k=k)
+
+    # Impute DataFrame
+    df_knn_imputed.iloc[:, :] = knn_imputer.fit_transform(df_knn_imputed)
+    
+    return df_knn_imputed
