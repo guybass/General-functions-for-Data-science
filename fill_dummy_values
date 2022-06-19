@@ -1,0 +1,27 @@
+def fill_dummy_values(df, scaling_factor=0.075, mean_factor=2):
+"""
+This function takes a DataFrame and returns the DataFrame with the missing values as dummies scaled and arranged.
+"""
+  # Copy the data 
+  df_dummy = df.copy(deep=True)
+  
+  # Iterate over the columns
+  for col_name in df_dummy:
+    # Assign the column
+    col = df_dummy[col_name]
+    
+    # Set the Nulls
+    col_null = col.isnull()
+    
+    # Calculate number of missing values in column 
+    num_nulls = col_null.sum()
+    
+    # Calculate column range
+    col_range = col.max() - col.min()
+    
+    # Scale the random values to scaling_factor times col_range
+    dummy_values = (rand(num_nulls) - mean_factor) * scaling_factor * col_range + col.min()
+    
+    # Assign the dummy values
+    col[col_null] = dummy_values
+  return df_dummy
